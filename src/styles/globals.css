@@ -1,0 +1,15 @@
+.form-check-input[type="checkbox"]:checked {
+    background-color: #d27d01;
+    border-color: #d27d01;
+}
+
+.form-check-input[type="radio"]:checked {
+    background-color: #d27d01;
+    border-color: #d27d01;
+}
+
+input:focus, select:focus, button:focus, .form-check-input:focus {
+    outline: 5px solid #fceacf !important; 
+    border: 1px solid #d27d01 !important;
+    box-shadow: 0 !important; 
+}
