@@ -70,19 +70,26 @@ export default function Checkout() {
 }
  */
 
-import { Navbar, OrderDetails, OrderForm } from '@/components'
-import React from 'react'
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import OrderForm from "@/components/OrderForm";
+import OrderDetails from "@/components/OrderDetails";
+import Navbar from "@/components/Navbar";
 
-type Props = {}
+// Load Stripe with your public key
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
-export default function checkout({}: Props) {
-  return (
-    <div>
-        <Navbar/>
-        <div>
-            <OrderForm/>
-            <OrderDetails/>
+
+export default function checkout() {
+    return (
+        <div className="container-md">
+            <Navbar />
+            <div className='container d-flex px-5'>
+                <Elements stripe={stripePromise}>
+                    <OrderForm />
+                </Elements>
+                <OrderDetails />
+            </div>
         </div>
-    </div>
-  )
+    );
 }
