@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 export default function Home() {
+  
   return (
     <>
       <Head>
@@ -11,10 +12,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="d-flex vh-100 justify-content-center align-items-center">
-        <Link href="/checkout"
+        <Link href="/checkout/prod_001"
           className="btn btn-primary"
         >
-          Aller à la page de paiement
+          Aller à la page de paiement du produit 1
         </Link>
       </main>
     </>
