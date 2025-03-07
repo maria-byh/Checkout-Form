@@ -399,8 +399,9 @@ export default function OrderForm({ product, setDeliveryRate, totalAmount }: { p
                         </div>
                         <button type='submit' className='btn btn-success w-100 mt-3 fs-5 border-0 mb-3' style={{ paddingBottom: "10px", paddingTop: "10px", backgroundColor: "#d27d01" }}><i className="bi bi-lock-fill"></i> Payer</button>
                         <p className='mb-3 text-secondary align-self-center'><i className="bi bi-lock-fill"></i> Toutes les transactions sont sécurisées et cryptées</p>
-                        <div className='d-flex gap-4 align-self-center'>
-                            Visa Mastercard
+                        <div className='d-flex gap-3 align-self-center align-items-center'>
+                            <img style={{height: "60px"}} src="/images/visa.png" alt="visa" />
+                            <img style={{height: "30px"}} src="/images/mastercard.png" alt="mastercard" />
                         </div>
                     </form>
                 )
