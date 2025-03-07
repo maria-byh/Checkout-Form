@@ -99,12 +99,6 @@ export default function OrderForm({ product, setDeliveryRate, totalAmount }: { p
     const [expiryError, setExpiryError] = useState<string | null>(null);
     const [cvcError, setCvcError] = useState<string | null>(null);
 
-    useEffect(() => {
-        console.log("Stripe instance:", stripe);
-    }, [stripe]);
-
-
-
     const handleSubmit = async (values: any) => {
 
         if (!stripe || !elements) {
@@ -162,11 +156,8 @@ export default function OrderForm({ product, setDeliveryRate, totalAmount }: { p
                 alert("Payment failed: " + paymentResult.message);
             }
         } catch (err) {
-            console.error("Payment error:", err);
             alert("An error occurred while processing your payment.");
         }
-
-        console.log("Form submitted successfully:", values);
     };
 
 

@@ -1,40 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
-## Getting Started
+# Checkout-Form
 
-First, run the development server:
+A simple checkout form implemented using **Next.js**, **Stripe**, and **React**. This form allows users to make payments via Stripe using a payment method of their choice.
+
+## Features
+
+- **Stripe Integration**: Secure payment processing with Stripe.
+- **Form Validation**: Uses Formik and Yup for managing form state and validation.
+- **Responsive Design**: Built with Bootstrap for a clean and responsive UI.
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/<your-username>/Checkout-Form.git
+   cd Checkout-Form
+   ```
+
+2. Install the dependencies using **npm** (or **pnpm** if preferred):
+
+   ```bash
+   npm install
+   ```
+
+   Or with **pnpm**:
+
+   ```bash
+   pnpm install
+   ```
+
+3. Set up your environment variables:
+   - Create a `.env.local` file in the root directory of the project.
+   - Add both **Stripe secret** and **public keys**:
+
+     ```bash
+     STRIPE_SECRET_KEY=your-stripe-secret-key
+     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your-stripe-test-public-key
+     ```
+
+
+## Development
+
+To start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Or with **pnpm**:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm run dev
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+The application will be available at `http://localhost:3000`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## Building and Exporting the Site
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To build and export the static version of the app:
 
-## Learn More
+1. **Build the project**:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm run build
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+   Or with **pnpm**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   pnpm run build
+   ```
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+├── components/           # Reusable components
+├── pages/                # Next.js pages (including the checkout form page)
+├── public/               # Static assets like images
+├── styles/               # Global styles
+├── types/                # Global types
+├── .env.local            # Environment variables (Stripe keys)
+├── next.config.ts        # Next.js configuration (base path for GitHub Pages)
+├── package.json          # Project dependencies and scripts
+├── pnpm-lock.yaml        # Lockfile for pnpm
+└── README.md             # This file
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## Technologies Used
+
+- **Next.js**: Framework for building server-rendered React applications.
+- **Stripe**: Payment gateway for secure payments.
+- **React**: JavaScript library for building user interfaces.
+- **Formik**: Library for handling forms in React.
+- **Yup**: Schema validation library for Formik.
+- **Bootstrap**: Front-end framework for responsive design.
+- **npm/pnpm**: Package manager for managing dependencies.
+
+## License
+
+This project is licensed under the MIT License.
