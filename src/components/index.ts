@@ -1,6 +1,6 @@
 import Navbar from "./Navbar";
 import OrderDetails from "./OrderDetails";
-import OrderForm from "./OrderForm";
+import OrderForm from "./CheckoutForm";
 
 export {
     Navbar,

@@ -1,6 +1,6 @@
 
-import { Elements} from "@stripe/react-stripe-js";
-import OrderForm from "@/components/OrderForm";
+import { Elements } from "@stripe/react-stripe-js";
+import OrderForm from "@/components/CheckoutForm";
 import OrderDetails from "@/components/OrderDetails";
 import Navbar from "@/components/Navbar";
 import { stripePromise } from "@/utils/StripeConfig";
