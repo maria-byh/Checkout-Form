@@ -96,7 +96,3 @@ To build and export the static version of the app:
 - **Yup**: Schema validation library for Formik.
 - **Bootstrap**: Front-end framework for responsive design.
 - **npm/pnpm**: Package manager for managing dependencies.
-
-## License
-
-This project is licensed under the MIT License.

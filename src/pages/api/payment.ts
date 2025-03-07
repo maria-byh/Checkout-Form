@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: Math.round(amount * 100), // Convert to cents
+            amount: Math.round(amount), 
             currency: "eur",
             payment_method: paymentMethodId,
             confirm: true, 
