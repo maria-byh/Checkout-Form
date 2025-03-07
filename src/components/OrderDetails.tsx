@@ -1,22 +1,23 @@
 import { ProductType } from "@/types/DataTypes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function OrderDetails({ product, deliveryRate }: { product: ProductType, deliveryRate: number }) {
+export default function OrderDetails({ product, deliveryRate, setTotalAmount }: { product: ProductType, deliveryRate: number, setTotalAmount: (totalAmount: number) => void }) {
     const [discountCode, setDiscountCode] = useState("");
     const [discountAmount, setDiscountAmount] = useState(0);
     const [invalidDiscountError, setInvalidDiscountError] = useState("");
 
+    //example of discount code
     const validDiscounts: { [code: string]: number } = {
-        "PROMO10": 10, // €10 discount
-        "SALE20": 20,  // €20 discount
-        "BLACKFRIDAY": 0.1 // 10% discount
+        "PROMO10": 10, 
+        "SALE20": 20, 
+        "BLACKFRIDAY": 0.1 
     };
 
     const handleApplyDiscount = () => {
         if (validDiscounts.hasOwnProperty(discountCode)) {
             let discount = validDiscounts[discountCode];
             if (discount < 1) {
-                discount = subtotal * discount; // Apply percentage-based discount
+                discount = subtotal * discount;
             }
             setDiscountAmount(discount);
             setInvalidDiscountError("");
@@ -29,6 +30,10 @@ export default function OrderDetails({ product, deliveryRate }: { product: Produ
     const subtotal = product.itemsNumber * product.price;
     const taxes = subtotal * product.taxRate;
     const total = subtotal + taxes + deliveryRate - discountAmount;
+
+    useEffect(()=>{
+        setTotalAmount(total)
+    },[total])
 
     return (
         <div className='p-4' >

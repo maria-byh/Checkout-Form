@@ -1,5 +1,5 @@
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements, useStripe } from "@stripe/react-stripe-js";
+
+import { Elements} from "@stripe/react-stripe-js";
 import OrderForm from "@/components/OrderForm";
 import OrderDetails from "@/components/OrderDetails";
 import Navbar from "@/components/Navbar";
@@ -7,7 +7,6 @@ import { stripePromise } from "@/utils/StripeConfig";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ProductType } from "@/types/DataTypes";
-import { useParams, notFound } from "next/navigation";
 
 const products: ProductType[] = [
     { id: "prod_001", itemsNumber: 1, name: "Wireless Headphones", taxRate: 0.10, description: "description du produit", price: 99.99, image: "https://sony.scene7.com/is/image/sonyglobalsolutions/wh-ch520_Primary_image?$categorypdpnav$&fmt=png-alpha" },
@@ -18,8 +17,8 @@ export default function checkout() {
     const router = useRouter();
     const { id } = router.query;
     const [product, setProduct] = useState<ProductType | null>(null);
-    const [deliveryRate, setDeliveryRate] = useState<number>()
-    const [totalAmount, settotalAmount] = useState()
+    const [deliveryRate, setDeliveryRate] = useState<number>(0)
+    const [totalAmount, setTotalAmount] = useState<number>(0)
 
     useEffect(() => {
         if (id) {
@@ -41,10 +40,10 @@ export default function checkout() {
                 {product ? (
                     <div className='d-flex flex-column flex-lg-row px-0 px-lg-5'>
                         <div className='flex-lg-grow-1 order-2 order-lg-1' style={{ minWidth: "60%" }}>
-                            <OrderForm product={product} setDeliveryRate={setDeliveryRate} />
+                            <OrderForm product={product} setDeliveryRate={setDeliveryRate} totalAmount={totalAmount} />
                         </div>
                         <div className='flex-lg-grow-1 order-1 order-lg-2' style={{ minWidth: "40%" }}>
-                            <OrderDetails product={product} deliveryRate={deliveryRate ?? 0} />
+                            <OrderDetails product={product} deliveryRate={deliveryRate} setTotalAmount={setTotalAmount} />
                         </div>
                     </div>
                 ) : (

@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-import { CardElement, useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js';
+import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js';
 import { ErrorMessage, Field, Formik } from 'formik';
 import { ProductType } from '@/types/DataTypes';
 
@@ -90,8 +90,7 @@ const validationSchema = Yup.object().shape({
         .required("Veuillez sélectionner un mode de paiement"),
 });
 
-export default function OrderForm({ product, setDeliveryRate }: { product: ProductType, setDeliveryRate: (rate: number) => void }) {
-    const [formData, setFormData] = useState({ email: '', marketing: false, address: {} });
+export default function OrderForm({ product, setDeliveryRate, totalAmount }: { product: ProductType, setDeliveryRate: (rate: number) => void, totalAmount: number }) {
     const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
     const stripe = useStripe();
     const elements = useElements();
@@ -116,6 +115,7 @@ export default function OrderForm({ product, setDeliveryRate }: { product: Produ
         const cardElement = elements.getElement(CardNumberElement);
         const expiryElement = elements.getElement(CardExpiryElement);
         const cvcElement = elements.getElement(CardCvcElement);
+        
         if (!cardElement || !expiryElement || !cvcElement) {
             setFillError("Please fill in all card details.");
             return;
@@ -123,14 +123,50 @@ export default function OrderForm({ product, setDeliveryRate }: { product: Produ
             setFillError(null);
         }
 
-        const { error, token } = await stripe.createToken(cardElement);
-        if (error) {
-            setCardError(error.message || null);
-            return;
+        try {
+            const { paymentMethod, error } = await stripe.createPaymentMethod({
+                type: "card",
+                card: cardElement,
+                billing_details: {
+                    name: `${values.firstName} ${values.lastName}`,
+                    email: values.email,
+                    address: {
+                        line1: values.address,
+                        city: values.city,
+                        state: values.state,
+                        postal_code: values.postalCode,
+                        country: values.country,
+                    },
+                },
+            });
+
+            if (error) {
+                setFillError((error.message && "Veuillez remplir tous les détails de la carte.") || "Payment failed.");
+                return;
+            }
+
+            const response = await fetch("/api/payment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    paymentMethodId: paymentMethod.id,
+                    amount: totalAmount * 100,
+                }),
+            });
+
+            const paymentResult = await response.json();
+
+            if (paymentResult.success) {
+                alert("Payment successful!");
+            } else {
+                alert("Payment failed: " + paymentResult.message);
+            }
+        } catch (err) {
+            console.error("Payment error:", err);
+            alert("An error occurred while processing your payment.");
         }
 
         console.log("Form submitted successfully:", values);
-        console.log("Stripe Token Created:", token);
     };
 
 
